@@ -1,0 +1,39 @@
+{
+  "members": [
+    {
+      "robloxUserId": 313543,
+      "role": "Owner",
+      "joinDate": "2024-01-10",
+      "bio": "Roblox CEO & Group Founder. Building the future of play.",
+      "status": "Online"
+    },
+    {
+      "robloxUserId": 181775794,
+      "role": "Co-Owner",
+      "joinDate": "2024-02-15",
+      "bio": "Official builderman account. Let's build together!",
+      "status": "Offline"
+    },
+    {
+      "robloxUserId": 1,
+      "role": "Chief Admin",
+      "joinDate": "2006-02-27",
+      "bio": "The administrator account that keeps the community safe.",
+      "status": "Online"
+    },
+    {
+      "robloxUserId": 261,
+      "role": "Head Developer",
+      "joinDate": "2007-05-12",
+      "bio": "Former Creative Director at Roblox. Explosions and sword fights!",
+      "status": "In Game"
+    },
+    {
+      "robloxUserId": 10967322,
+      "role": "Clan Member",
+      "joinDate": "2013-09-08",
+      "bio": "Richest Roblox trader. Always ready to trade and play.",
+      "status": "Offline"
+    }
+  ]
+}
