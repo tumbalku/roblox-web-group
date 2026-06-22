@@ -124,3 +124,13 @@ body {
     animation: none !important;
   }
 }
+
+/* Cultish Interactive Gallery Styles */
+.canvas-smooth-drag {
+  transition: transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.canvas-grid-bg {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px);
+  background-size: 40px 40px;
+}
