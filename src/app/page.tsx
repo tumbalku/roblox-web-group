@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import MemberGallery from "@/components/MemberGallery";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -15,8 +16,9 @@ export default function Home() {
           </span>
         </div>
         <nav className="hidden sm:flex items-center gap-6 text-sm font-bold text-slate-650 dark:text-slate-350">
-          <a href="#" className="hover:text-orange-550 transition-colors">Home</a>
+          <Link href="/" className="hover:text-orange-550 transition-colors">Home</Link>
           <a href="#members" className="hover:text-orange-555 transition-colors">Members</a>
+          <Link href="/gallery" className="hover:text-orange-555 transition-colors">Gallery</Link>
           <a href="#about" className="hover:text-orange-555 transition-colors">Tentang Kami</a>
         </nav>
       </header>
