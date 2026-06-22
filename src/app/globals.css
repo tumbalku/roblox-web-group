@@ -51,6 +51,62 @@ body {
   background-clip: content-box;
 }
 
+/* Retro Desktop Animations and Utilities */
+@keyframes badge-swing {
+  0% { transform: rotate(3deg); }
+  100% { transform: rotate(-3deg); }
+}
+
+.badge-swing {
+  animation: badge-swing 3.5s ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+
+@keyframes vinyl-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.vinyl-spin {
+  animation: vinyl-spin 10s linear infinite;
+}
+
+/* Paper Grain Texture Overlay */
+.paper-grain {
+  position: relative;
+}
+
+.paper-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 50;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* LED dot indicator animation */
+@keyframes led-blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.dot-led {
+  background-color: var(--dot-color, #78716c);
+  opacity: 0.2;
+  transition: all 0.3s;
+}
+
+.dot-led.dot-on {
+  opacity: 1;
+  box-shadow: 0 0 6px var(--dot-color);
+  animation: led-blink 1.5s infinite;
+  animation-delay: var(--dot-delay, 0ms);
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -62,5 +118,9 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  
+  .badge-swing, .vinyl-spin, .dot-on {
+    animation: none !important;
   }
 }
