@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, X, Calendar, User, FileText, ArrowRight, ExternalLink, Shield } from "lucide-react";
 import memberData from "../data/members.json";
@@ -27,15 +27,23 @@ function MemberCard({
   member,
   onClick,
   onLoadedInfo,
+  cachedUserInfo,
 }: {
   member: Member;
   onClick: (info: RobloxUserInfo) => void;
   onLoadedInfo: (userId: number, info: RobloxUserInfo) => void;
+  cachedUserInfo?: RobloxUserInfo;
 }) {
-  const [userInfo, setUserInfo] = useState<RobloxUserInfo | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState<RobloxUserInfo | null>(cachedUserInfo || null);
+  const [loading, setLoading] = useState(!cachedUserInfo);
 
   useEffect(() => {
+    if (cachedUserInfo) {
+      setUserInfo(cachedUserInfo);
+      setLoading(false);
+      return;
+    }
+
     const fetchInfo = async () => {
       try {
         const res = await fetch(`/api/roblox/member-info?userId=${member.robloxUserId}`);
@@ -51,7 +59,7 @@ function MemberCard({
       }
     };
     fetchInfo();
-  }, [member.robloxUserId, onLoadedInfo]);
+  }, [member.robloxUserId, onLoadedInfo, cachedUserInfo]);
 
   // Role Badge Styling Mapper
   const getRoleBadgeStyle = (role: string) => {
@@ -150,9 +158,14 @@ export default function MemberGallery() {
   // Cache loaded user info so modal can use it immediately
   const [loadedUsers, setLoadedUsers] = useState<Record<number, RobloxUserInfo>>({});
 
-  const handleLoadedInfo = (userId: number, info: RobloxUserInfo) => {
-    setLoadedUsers((prev) => ({ ...prev, [userId]: info }));
-  };
+  const handleLoadedInfo = useCallback((userId: number, info: RobloxUserInfo) => {
+    setLoadedUsers((prev) => {
+      if (prev[userId] && prev[userId].username === info.username && prev[userId].avatar2dUrl === info.avatar2dUrl) {
+        return prev;
+      }
+      return { ...prev, [userId]: info };
+    });
+  }, []);
 
   // Get distinct roles for dropdown filter
   const roles = ["All", ...Array.from(new Set(memberData.members.map((m) => m.role)))];
@@ -243,6 +256,7 @@ export default function MemberGallery() {
                   member={member}
                   onClick={(info) => handleCardClick(member, info)}
                   onLoadedInfo={handleLoadedInfo}
+                  cachedUserInfo={loadedUsers[member.robloxUserId]}
                 />
               </motion.div>
             ))}
