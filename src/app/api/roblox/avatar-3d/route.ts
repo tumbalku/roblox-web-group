@@ -11,7 +11,11 @@ export async function GET(request: NextRequest) {
   try {
     // 1. Fetch the 3D avatar config URL
     const avatar3dUrl = `https://thumbnails.roblox.com/v1/users/avatar-3d?userId=${userId}`;
-    const response = await fetch(avatar3dUrl);
+    const headers: Record<string, string> = {};
+    if (process.env.ROBLOX_API_KEY) {
+      headers["x-api-key"] = process.env.ROBLOX_API_KEY;
+    }
+    const response = await fetch(avatar3dUrl, { headers });
 
     if (!response.ok) {
       return NextResponse.json(

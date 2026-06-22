@@ -9,9 +9,10 @@ import { Loader2, AlertCircle, RotateCcw } from "lucide-react";
 
 interface ThreeDViewerProps {
   userId: number;
+  avatar2dUrl?: string;
 }
 
-export default function ThreeDViewer({ userId }: ThreeDViewerProps) {
+export default function ThreeDViewer({ userId, avatar2dUrl }: ThreeDViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const modelRef = useRef<THREE.Group | null>(null);
@@ -21,6 +22,7 @@ export default function ThreeDViewer({ userId }: ThreeDViewerProps) {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingStatus, setLoadingStatus] = useState<string>("Inisialisasi renderer...");
   const [error, setError] = useState<string | null>(null);
+  const [show2DFallback, setShow2DFallback] = useState<boolean>(false);
 
   // Helper to parse the base path from the MTL url to bypass CORS for textures
   const getResourcePath = (mtlProxyUrl: string) => {
@@ -185,7 +187,11 @@ export default function ThreeDViewer({ userId }: ThreeDViewerProps) {
               },
               (err) => {
                 console.error("Error loading OBJ file:", err);
-                setError("Gagal merender struktur model 3D.");
+                if (avatar2dUrl) {
+                  setShow2DFallback(true);
+                } else {
+                  setError("Gagal merender struktur model 3D.");
+                }
                 setLoading(false);
               }
             );
@@ -198,13 +204,21 @@ export default function ThreeDViewer({ userId }: ThreeDViewerProps) {
           },
           (err) => {
             console.error("Error loading MTL file:", err);
-            setError("Gagal mengunduh material pakaian dan tekstur.");
+            if (avatar2dUrl) {
+              setShow2DFallback(true);
+            } else {
+              setError("Gagal mengunduh material pakaian dan tekstur.");
+            }
             setLoading(false);
           }
         );
       } catch (err: any) {
         console.error("Fetch model error:", err);
-        setError(err.message || "Gagal menghubungkan ke server.");
+        if (avatar2dUrl) {
+          setShow2DFallback(true);
+        } else {
+          setError(err.message || "Gagal menghubungkan ke server.");
+        }
         setLoading(false);
       }
     };
@@ -262,6 +276,39 @@ export default function ThreeDViewer({ userId }: ThreeDViewerProps) {
   const handleResetCamera = () => {
     isIdleRef.current = true;
   };
+
+  if (show2DFallback && avatar2dUrl) {
+    return (
+      <div className="relative w-full h-[450px] rounded-2xl overflow-hidden bg-slate-950/20 backdrop-blur-md border border-white/10 flex flex-col items-center justify-center p-6 text-center shadow-inner select-none">
+        
+        {/* Soft glowing background behind image */}
+        <div className="absolute inset-0 bg-radial-[circle_at_center,_var(--tw-gradient-stops)] from-orange-500/10 via-transparent to-transparent opacity-60 pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col items-center gap-6">
+          {/* Framed 2D Avatar Image */}
+          <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-orange-500/20 shadow-2xl bg-slate-900/40 p-2 animate-bounce" style={{ animationDuration: "5s" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={avatar2dUrl}
+              alt="Avatar 2D Fallback"
+              className="w-full h-full object-cover select-none"
+            />
+          </div>
+
+          {/* Friendly Message */}
+          <div className="max-w-xs space-y-2">
+            <h4 className="text-sm font-bold text-orange-400 uppercase tracking-wider">
+              Tampilan 3D Terbatas
+            </h4>
+            <p className="text-xs text-slate-350 leading-relaxed font-semibold">
+              Tampilan 3D saat ini dibatasi oleh sistem Roblox. Menampilkan versi 2D terbaik sebagai alternatif! 🚀
+            </p>
+          </div>
+        </div>
+
+      </div>
+    );
+  }
 
   return (
     <div

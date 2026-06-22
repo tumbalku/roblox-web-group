@@ -306,7 +306,7 @@ export default function MemberGallery() {
                   <Shield className="w-3.5 h-3.5" />
                   Roblox Avatar 3D Viewer
                 </div>
-                <ThreeDViewer userId={selectedMember.userInfo.userId} />
+                <ThreeDViewer userId={selectedMember.userInfo.userId} avatar2dUrl={selectedMember.userInfo.avatar2dUrl} />
               </div>
 
               {/* Member Profile Details (Right side) */}
