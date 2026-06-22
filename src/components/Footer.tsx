@@ -1,59 +1,50 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { MessageSquare, Flame, Heart } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 text-slate-400 py-16 px-6 border-t border-slate-900 select-none">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+    <footer className="bg-slate-950 text-slate-400 py-10 px-6 border-t border-slate-900 select-none">
+      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
         
-        {/* Branding Info */}
-        <div className="text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
-            <span className="text-lg font-black tracking-wider bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent uppercase">
-              BGST Group
-            </span>
-            <span className="text-[10px] px-2 py-0.5 font-bold uppercase tracking-wider rounded-full bg-slate-900 text-orange-400 border border-orange-400/20">
-              v1.0
-            </span>
-          </div>
-          <p className="text-xs text-slate-500 max-w-xs leading-relaxed font-medium">
-            Komunitas gamer Roblox Indonesia yang Bagus, Sopan, dan Terpelajar. Bersenang-senang secara sehat dan suportif.
-          </p>
+        {/* Branding Title */}
+        <div className="flex items-center gap-2">
+          <span className="text-base font-black tracking-wider bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent uppercase">
+            BGST Group
+          </span>
         </div>
 
         {/* Social Links */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <a
             href="https://discord.gg/bgstgroup"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full bg-slate-900 hover:bg-orange-500 border border-slate-800 hover:border-orange-500 text-slate-350 hover:text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md"
-            title="Join Server Discord Kami"
+            className="w-8 h-8 rounded-lg bg-slate-900 hover:bg-orange-500 border border-slate-800 hover:border-orange-500 text-slate-400 hover:text-white flex items-center justify-center transition-all shadow-sm"
+            title="Discord"
           >
-            <MessageSquare className="w-5 h-5" />
+            <MessageSquare className="w-4 h-4" />
           </a>
           <a
             href="https://www.roblox.com/groups/12345"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full bg-slate-900 hover:bg-orange-500 border border-slate-800 hover:border-orange-500 text-slate-350 hover:text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md"
-            title="Kunjungi Grup Roblox"
+            className="w-8 h-8 rounded-lg bg-slate-900 hover:bg-orange-500 border border-slate-800 hover:border-orange-500 text-slate-400 hover:text-white flex items-center justify-center transition-all shadow-sm"
+            title="Grup Roblox"
           >
-            <Flame className="w-5 h-5" />
+            <Flame className="w-4 h-4 text-orange-500" />
           </a>
           <a
             href="https://github.com/tumbalku/roblox-web-group"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full bg-slate-900 hover:bg-orange-500 border border-slate-800 hover:border-orange-500 text-slate-350 hover:text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md"
-            title="Source Code Repository"
+            className="w-8 h-8 rounded-lg bg-slate-900 hover:bg-orange-500 border border-slate-800 hover:border-orange-500 text-slate-400 hover:text-white flex items-center justify-center transition-all shadow-sm"
+            title="GitHub"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -69,13 +60,13 @@ export default function Footer() {
 
       </div>
 
-      <hr className="border-slate-900 my-10 max-w-6xl mx-auto" />
+      <hr className="border-slate-900 my-6 max-w-4xl mx-auto" />
 
       {/* Copyright info */}
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-semibold tracking-wide text-slate-600 dark:text-slate-500 uppercase">
-        <p>© {currentYear} BGST Group. Hak Cipta Dilindungi.</p>
+      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] font-bold tracking-wide text-slate-650 dark:text-slate-500 uppercase">
+        <p>© {currentYear} BGST. Hak Cipta Dilindungi.</p>
         <p className="flex items-center gap-1">
-          Dibuat dengan <Heart className="w-3.5 h-3.5 text-rose-500 animate-pulse fill-rose-500" /> untuk Komunitas Roblox
+          Dibuat dengan <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> untuk Komunitas Roblox
         </p>
       </div>
 
